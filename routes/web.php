@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CrudUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,12 @@ Route::middleware(['auth'])->group(function(){
     //Login Sistem Auth
     Route::get('/home',[AdminController::class,'index']);
     Route::get('/logout',[UserController::class,'logout']);
+
+    // Crud User
+    Route::get('/User-Account',[CrudUserController::class,'index']);
+    Route::post('/User-Account/store',[CrudUserController::class,'store']);
+    Route::post('/User-Account/update/{id}',[CrudUserController::class,'update']);
+    Route::get('/User-Account/destroy/{id}',[CrudUserController::class,'destroy']);
 
     //Crud Master Data Konservasi
     Route::get('/konservasi-data',[MasterController::class,'index']);

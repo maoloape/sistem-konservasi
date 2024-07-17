@@ -110,7 +110,7 @@
         <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'user')
+                    @if (Auth::user()->role == 'admin')
                     <li class="nav-label">Dashboard</li>
                     <li>
                         <a href="widgets.html" aria-expanded="false">
@@ -119,8 +119,25 @@
                     </li>
                     <li class="nav-label">User Management</li>
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="/User-Account" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">User</span>
+                        </a>
+                    </li>
+                    <li class="nav-label">Master Data</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Data Konservasi</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/konservasi-data">Data Lokasi</a></li>
+                        </ul>
+                    </li>
+                    @endif
+                    @if (Auth::user()->role == 'user')
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a href="widgets.html" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-label">Master Data</li>
@@ -222,23 +239,25 @@
     leafletMap.on('click',function(e) {
         let latitude  = e.latlng.lat.toString().substring(0,15);
         let longitude = e.latlng.lng.toString().substring(0,15);
-        // document.getElementById("latitude").value = latitude;
-        // document.getElementById("longitude").value = longitude;
+
         let popup = L.popup()
             .setLatLng([latitude,longitude])
             .setContent("Kordinat : " + latitude +" - "+  longitude )
             .openOn(leafletMap);
+
+        document.querySelector("#longitude").value = longitude;
+        document.querySelector("#latitude").value = latitude;
 
         if (theMarker != undefined) {
             leafletMap.removeLayer(theMarker);
         };
         theMarker = L.marker([latitude,longitude]).addTo(leafletMap);  
     });
-
+    
     const search = new GeoSearch.GeoSearchControl({
         provider: providerOSM,
-        style: 'bar',
-        searchLabel: 'Sinjai',
+        style: 'icon',
+        searchLabel: 'Search',
     });
 
     leafletMap.addControl(search);
