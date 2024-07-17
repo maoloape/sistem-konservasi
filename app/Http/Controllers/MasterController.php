@@ -29,7 +29,7 @@ class MasterController extends Controller
             'bt'            => $request->bt,
             'ls'            => $request->ls,
             'dokumentasi'   => $request->dokumentasi,
-            'jenis_batu'   => $request->jenis_batu,
+            'jenis_batu'    => $request->jenis_batu,
         ]);
 
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
@@ -49,7 +49,7 @@ class MasterController extends Controller
             'bt'            => $request->bt,
             'ls'            => $request->ls,
             'dokumentasi'   => $request->dokumentasi,
-            'jenis_batu'   => $request->jenis_batu,
+            'jenis_batu'    => $request->jenis_batu,
         ]);
 
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
