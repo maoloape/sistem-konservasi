@@ -73,7 +73,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="/konservasi-data/store">
+                <form method="POST" action="/konservasi-data/store" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
@@ -113,11 +113,11 @@
                     </div>
                     <div class="form-group">
                         <label for="">Jenis Batu</label>
-                        <input type="text" class="form-control" name="jenis_batu" placeholde="Jenis Batu" required>
+                        <input type="text" class="form-control" name="jenis_batu" placeholde="Jenis Batu ..." required>
                     </div>
                     <div class="form-group">
                         <label for="">Dokumentasi</label>
-                        <input type="text" class="form-control" name="dokumentasi" placeholde="No. Kontrak ..." required>
+                        <input type="file" class="form-control" name="dokumentasi"" required>
                     </div>
                 </div>
                 <div class="modal-footer">
