@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('desa');
             $table->string('blok');
-            $table->float('bt');
-            $table->float('ls');
+            $table->float('bt', 10,6);
+            $table->float('ls', 10,6);
             $table->string('dokumentasi');
             $table->timestamps();
         });

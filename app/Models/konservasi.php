@@ -21,6 +21,7 @@ class konservasi extends Model
         'bt',
         'ls',
         'dokumentasi',
-        'jenis_batu'
+        'jenis_batu',
+        'create_in'
     ];
 }

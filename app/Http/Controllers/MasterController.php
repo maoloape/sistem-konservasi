@@ -36,18 +36,19 @@ class MasterController extends Controller
         }
 
         konservasi::create([
-            'das' => $request->das,
-            'sub_das' => $request->sub_das,
-            'kabupaten' => $request->kabupaten,
-            'kecamatan' => $request->kecamatan,
-            'desa' => $request->desa,
-            'blok' => $request->blok,
-            'bt' => $request->bt,
-            'ls' => $request->ls,
-            'dokumentasi' => $filename,
-            'updated_at' => now(),
-            'created_at' => now(),
-            'jenis_batu' => $request->jenis_batu ?? 'default_value', // Pastikan baris ini ditambahkan
+            'das'           => $request->das,
+            'sub_das'       => $request->sub_das,
+            'kabupaten'     => $request->kabupaten,
+            'kecamatan'     => $request->kecamatan,
+            'desa'          => $request->desa,
+            'blok'          => $request->blok,
+            'bt'            => $request->bt,
+            'ls'            => $request->ls,
+            'dokumentasi'   => $filename,
+            'updated_at'    => now(),
+            'created_at'    => now(),
+            'create_in'     => 'in',
+            'jenis_batu'    => $request->jenis_batu ?? 'default_value', // Pastikan baris ini ditambahkan
         ]);
 
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');

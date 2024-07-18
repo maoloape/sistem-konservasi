@@ -22,7 +22,7 @@
     <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
 
     <style>
-        #map { height: 480px; }
+        #map, .map { height: 480px; }
     </style>
 </head>
 
@@ -42,7 +42,7 @@
         Preloader end
     ********************-->
 
-    
+
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -69,9 +69,9 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
+        <div class="header">
             <div class="header-content clearfix">
-                
+
                 <div class="nav-control">
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
@@ -89,7 +89,7 @@
                                     <ul>
                                         <li>
                                             <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
-                                        </li>                                      
+                                        </li>
                                         <hr class="my-2">
                                         <li><a href="/logout"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
@@ -107,7 +107,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
+        <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     @if (Auth::user()->role == 'admin')
@@ -160,7 +160,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        
+
 
          <div class="content-body">
 
@@ -181,8 +181,8 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        
-        
+
+
         <!--**********************************
             Footer start
         ***********************************-->
@@ -212,53 +212,7 @@
     <script src="/assets//plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="/assets//plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
+    @yield("js")
 </body>
 
 </html>
-
-<script>
-    // you want to get it of the window global
-    const providerOSM = new GeoSearch.OpenStreetMapProvider();
-
-    //leaflet map
-    var leafletMap = L.map('map', {
-    fullscreenControl: true,
-    // OR
-    fullscreenControl: {
-        pseudoFullscreen: false // if true, fullscreen to page width and height
-    },
-    minZoom: 2
-    }).setView([0,0], 2);
-
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(leafletMap);
-    
-    let theMarker = {};
-
-    leafletMap.on('click',function(e) {
-        let latitude  = e.latlng.lat.toString().substring(0,15);
-        let longitude = e.latlng.lng.toString().substring(0,15);
-
-        let popup = L.popup()
-            .setLatLng([latitude,longitude])
-            .setContent("Kordinat : " + latitude +" - "+  longitude )
-            .openOn(leafletMap);
-
-        document.querySelector("#longitude").value = longitude;
-        document.querySelector("#latitude").value = latitude;
-
-        if (theMarker != undefined) {
-            leafletMap.removeLayer(theMarker);
-        };
-        theMarker = L.marker([latitude,longitude]).addTo(leafletMap);  
-    });
-    
-    const search = new GeoSearch.GeoSearchControl({
-        provider: providerOSM,
-        style: 'icon',
-        searchLabel: 'Search',
-    });
-
-    leafletMap.addControl(search);
-</script>
