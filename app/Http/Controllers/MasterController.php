@@ -8,24 +8,24 @@ use App\Models\konservasi;
 class MasterController extends Controller
 {
     public function index()
-    {    
+    {
         $data = array(
             'tittle' => 'Master Data',
             'data_konservasi' => konservasi::all(),
         );
-           
+
         return view('admin.master.list', $data);
     }
 
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'dokumentasi' => 'mimes:png,jpg,jpeg|max:2048',
         ],[
             'dokumentasi.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
             'dokumentasi.max' => 'Dokumentasi tidak boleh lebih dari 2MB',
         ]);
-    
+
         // Upload the file if it exists
         if ($request->hasFile('dokumentasi')) {
             $file = $request->file('dokumentasi');
@@ -55,7 +55,7 @@ class MasterController extends Controller
     }
 
     public function update(Request $request, $id)
-    {   
+    {
         // Validasi input
         $request->validate([
             'dokumentasi' => 'mimes:png,jpg,jpeg|max:2048',
@@ -95,11 +95,11 @@ class MasterController extends Controller
             'bt'            => $request->bt,
             'ls'            => $request->ls,
             'jenis_batu'    => $request->jenis_batu,
-            'dokumentasi'   => $filename->dokumentasi,
+            'dokumentasi'   => $filename,
         ]);
 
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
-        
+
     }
 
     public function destroy($id)
