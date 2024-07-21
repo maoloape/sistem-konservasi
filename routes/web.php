@@ -32,8 +32,6 @@ Route::middleware(['auth'])->group(function(){
     //Login Sistem Auth
     Route::get('/Dashboard',[AdminController::class,'index']);
     Route::get('/logout',[UserController::class,'logout']);
-    Route::get('/',[HomeController::class,'index']);
-
 
     // Crud User
     Route::get('/User-Account',[CrudUserController::class,'index']);
