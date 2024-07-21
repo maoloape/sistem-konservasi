@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +23,15 @@ use App\Http\Controllers\CrudUserController;
 Route::middleware(['guest'])->group(function(){
     //Login Sistem Guest
     Route::get('/',[HomeController::class,'index']);
+    Route::get('/detail',[HomeController::class,'detail']);
+
     Route::get('/admin',[UserController::class,'index'])->name('login');
     Route::post('/admin',[UserController::class,'login']);
 });
 
 Route::middleware(['auth'])->group(function(){
     //Login Sistem Auth
-    Route::get('/home',[AdminController::class,'index']);
+    Route::get('/Dashboard',[AdminController::class,'index']);
     Route::get('/logout',[UserController::class,'logout']);
 
     // Crud User
@@ -42,4 +46,4 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/konservasi-data/filter',[MasterController::class,'filter']);
     Route::post('/konservasi-data/update/{id}',[MasterController::class,'update']);
     Route::get('/konservasi-data/destroy/{id}',[MasterController::class,'destroy']);
-});                                                                                                                 
+});

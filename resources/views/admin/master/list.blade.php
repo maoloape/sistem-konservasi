@@ -29,6 +29,7 @@
                                         <th>BT</th>
                                         <th>LS</th>
                                         <th>Jenis Batu</th>
+                                        <th>Keterangan</th>
                                         <th>Dokumentasi</th>
                                     </tr>
                                 </thead>
@@ -48,6 +49,7 @@
                                             <td>{{ $row->bt }}</td>
                                             <td>{{ $row->ls }}</td>
                                             <td>{{ $row->jenis_batu }}</td>
+                                            <td>{{ $row->keterangan }}</td>
                                             <td><img src="{{ asset('uploads/' . $row->dokumentasi) }}" alt=""
                                                     width="80px"></td>
                                             <td>
@@ -121,6 +123,11 @@
                         <div class="form-group">
                             <label for="">Jenis Batu</label>
                             <input type="text" class="form-control" name="jenis_batu" placeholde="Jenis Batu ..."
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" placeholde="Keterangan ..."
                                 required>
                         </div>
                         <div class="form-group">
@@ -200,6 +207,11 @@
                                 <label for="">Jenis Batu</label>
                                 <input type="text" value="{{ $d->jenis_batu }}" class="form-control"
                                     name="jenis_batu" placeholde="Jenis Batu" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <input type="text" value="{{ $d->keterangan }}" class="form-control"
+                                    name="keterangan" placeholde="Keterangan" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Dokumentasi</label>

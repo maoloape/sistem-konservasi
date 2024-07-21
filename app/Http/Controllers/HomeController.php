@@ -18,4 +18,16 @@ class HomeController extends Controller
 
         return view('beranda', $data);
     }
+
+    public function detail()
+    {
+        $data = array(
+            'tittle' => 'Detail Lokasi',
+            'data_konservasi' => konservasi::all(["bt", "ls", "create_in", "das"]),
+        );
+
+        // dd($data['data_konservasi']);
+
+        return view('detail', $data);
+    }
 }

@@ -48,7 +48,8 @@ class MasterController extends Controller
             'updated_at'    => now(),
             'created_at'    => now(),
             'create_in'     => 'in',
-            'jenis_batu'    => $request->jenis_batu ?? 'default_value', // Pastikan baris ini ditambahkan
+            'jenis_batu'    => $request->jenis_batu,
+            'keterangan'    => $request->keterangan,
         ]);
 
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
@@ -95,6 +96,7 @@ class MasterController extends Controller
             'bt'            => $request->bt,
             'ls'            => $request->ls,
             'jenis_batu'    => $request->jenis_batu,
+            'keterangan'    => $request->keterangan,
             'dokumentasi'   => $filename,
         ]);
 

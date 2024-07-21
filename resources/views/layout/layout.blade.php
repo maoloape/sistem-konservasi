@@ -23,6 +23,25 @@
 
     <style>
         #map, .map { height: 480px; }
+
+        .nav-header {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            padding: auto !important;
+        }
+
+        .brand-logo img {
+            width: 60px !important;
+            height: auto !important;
+        }
+
+        .brand-logo span {
+            color: white !important; /* Warna putih untuk tulisan */
+            font-size: 16px !important; /* Anda bisa sesuaikan ukuran font jika perlu */
+            margin-left: 0px !important; /* Jarak antara gambar dan teks */
+        }
+
     </style>
 </head>
 
@@ -53,12 +72,9 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
-                    </span>
+                <a href="/Dashboard">
+                    <img src="/assets_home/img/logo.png" alt="">
+                    <span> GIS Bangunan </span>
                 </a>
             </div>
         </div>
@@ -87,9 +103,6 @@
                             <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
-                                        </li>
                                         <hr class="my-2">
                                         <li><a href="/logout"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
@@ -113,7 +126,7 @@
                     @if (Auth::user()->role == 'admin')
                     <li class="nav-label">Dashboard</li>
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="/Dashboard" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                     </li>

@@ -49,6 +49,18 @@
             width: 100%;
             overflow: hidden;
         }
+
+        .navbar-brand img {
+            max-height: 50px; /* Adjust as needed */
+            height: auto;
+            width: auto;
+        }
+        .navbar {
+            padding: 0.5rem 1rem;
+        }
+        .navbar-nav .nav-link {
+            padding: 0.5rem 1rem;
+        }
     </style>
 </head>
 
@@ -64,49 +76,21 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary">GeoSearch</h2>
+        <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img src="/assets_home/img/logo.png" alt="">
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="/" class="nav-item nav-link active">Home</a>
                 <a href="#about_us" class="nav-item nav-link">About</a>
             </div>
-            <a href="/admin" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i
-                    class="fa fa-arrow-right ms-3"></i></a>
+            <a href="/" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Home<i
+                    class="fa fa-home ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
-
-
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 pb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="/assets_home/img/cover.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
-                    style="background: rgba(53, 53, 53, .7);">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-lg-8 text-center">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Welcome To GeoSearch
-                                </h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Pendenahan Tempat Konservasi
-                                </h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor
-                                    at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea
-                                    elitr.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Carousel End -->
 
 
     @yield('content')
@@ -114,36 +98,14 @@
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">About Us</h4>
-                    <p class="mb-2"><i class=""></i>Vero elitr justo clita lorem. Ipsum dolor at sed stet sit
-                        diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">Address</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Gunadarma</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i
-                                class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container">
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Wilayah Konservasi</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="#">Peta Lokasi Bangunan KTA</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        2024 </a>
+
                     </div>
                 </div>
             </div>

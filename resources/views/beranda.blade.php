@@ -1,10 +1,35 @@
 @extends('layout.utama')
 @section('content')
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 pb-5">
+        <div class="owl-carousel header-carousel position-relative">
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="/assets_home/img/cover.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+                    style="background: rgba(53, 53, 53, .7);">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-8 text-center">
+                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Sistem Informasi Geografis Wisata
+                                </h5>
+                                <h1 class="display-3 text-white animated slideInDown mb-4">Kabupaten Banyumas
+                                </h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Sistem informasi ini merupakan aplikasi pemetaan geografis tempat wisata di wilayah Banyumas. Aplikasi ini memuat informasi dan lokasi dari tempat wisata di Banyumas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="section-title text-center">
-                <h1 class="display-5 mb-5">Our Services</h1>
+            <div class="text-center">
+                <h1 class="display-5 mb-5">Peta Lokasi Bangunan KTA</h1>
             </div>
             <div id="map_location">
             </div>
@@ -26,12 +51,10 @@
                     </div>
                     <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                         <div class="p-lg-5 pe-lg-0">
-                            <div class="section-title text-start">
-                                <h1 class="display-5 mb-4">About Us</h1>
+                            <div class="text-start">
+                                <h1 class="display-5 mb-4">Bangunan KTA di DAS Cidanau</h1>
                             </div>
-                            <p class="mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
-                                amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat
-                                amet</p>
+                            <p class="mb-4 pb-2">DAS Cidanau merupakan DAS penting dalam konteks pembangunan ekonomi di kawasan Kota Cilegon serta sebagian wilayah Serang Bagian Barat. Kota sentra industri dengan beberapa diantaranya secara nasional merupakan industri strategis, seperti baja, kimia hulu dan energi listrik. Bangunan KTA di DAS Cidanau dirancang untuk menjaga kelestarian lingkungan dan mendukung ketersediaan air baku.</p>
                             <div class="row g-4 mb-4 pb-2">
                                 <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
                                     <div class="d-flex align-items-center">
@@ -81,7 +104,7 @@
                 L.marker({
                     lat: bt,
                     lng: ls
-                }).bindPopup(`<h3>${create_in}</h3><p align="center"><a href="#" class="link_detail btn btn-primary">Lihat Detail</a>`
+                }).bindPopup(`<h3>${create_in}</h3><p align="center"><a href="/detail" class="link_detail btn btn-primary">Lihat Detail</a>`
                 ).addTo(leafletMap);
             }
 

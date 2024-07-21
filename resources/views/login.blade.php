@@ -11,11 +11,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="#">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="/assets/css/style.css" rel="stylesheet">
-    
+
 </head>
 
-<body class="h-100">
-    
+<body class="h-100" style="background: #AB7442;">
+
     <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <input type="password" class="form-control" placeholder="Password" name="password" required>
                                     </div>
-                                    <button type="submit" class="btn login-form__btn submit w-100">Sign In</button>
+                                    <button type="submit" class="btn login-form__btn submit w-100" style="background: #AB7442;">Sign In</button>
                                 </form>
                             </div>
                         </div>
@@ -58,9 +58,9 @@
             </div>
         </div>
     </div>
-    
 
-    
+
+
 
     <!--**********************************
         Scripts
