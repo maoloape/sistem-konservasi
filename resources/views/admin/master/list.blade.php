@@ -26,8 +26,8 @@
                                         <th>Kecamatan</th>
                                         <th>Desa</th>
                                         <th>Blok</th>
-                                        <th>BT</th>
                                         <th>LS</th>
+                                        <th>BT</th>
                                         <th>Jenis Batu</th>
                                         <th>Keterangan</th>
                                         <th>Dokumentasi</th>
@@ -118,13 +118,13 @@
                         <div id="map" class="form-group">
                         </div>
                         <div class="form-group">
-                            <label for="">BT</label>
-                            <input type="text" class="form-control" id="latitude" name="bt" placeholde="BT ..."
+                            <label for="">LS</label>
+                            <input type="text" class="form-control" id="latitude" name="bt" placeholde="LS ..."
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="">LS</label>
-                            <input type="text" class="form-control" id="longitude" name="ls" placeholde="LS ..."
+                            <label for="">BT</label>
+                            <input type="text" class="form-control" id="longitude" name="ls" placeholde="BT ..."
                                 required>
                         </div>
                         <div class="form-group">
@@ -201,12 +201,12 @@
 
                             </div>
                             <div class="form-group">
-                                <label for="">BT</label>
+                                <label for="">LS</label>
                                 <input type="text" value="{{ $d->bt }}" class="form-control"
                                     id="lat-{{ $d->id }}" name="bt" placeholde="BT ..." required>
                             </div>
                             <div class="form-group">
-                                <label for="">LS</label>
+                                <label for="">BT</label>
                                 <input type="text" value="{{ $d->ls }}" class="form-control"
                                     id="long-{{ $d->id }}" name="ls" placeholde="LS ..." required>
                             </div>
