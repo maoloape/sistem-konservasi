@@ -59,6 +59,13 @@
                                             <td>{{ $row->jenis_batu }}</td>
                                             <td><img src="{{ asset('uploads/' . $row->dokumentasi) }}" alt=""
                                                     width="80px"></td>
+                                            {{-- <td>
+                                                @if($row->dokumentasi)
+                                                    @foreach(json_decode($row->dokumentasi) as $image)
+                                                        <img src="{{ asset('uploads/' . $image) }}" alt="Dokumentasi" width="50" height="50">
+                                                    @endforeach
+                                                @endif
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

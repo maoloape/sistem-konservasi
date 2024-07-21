@@ -74,7 +74,7 @@
             <div class="brand-logo">
                 <a href="/Dashboard">
                     <img src="/assets_home/img/logo.png" alt="">
-                    <span> GIS Bangunan </span>
+                    <span> GIS Konservasi </span>
                 </a>
             </div>
         </div>
