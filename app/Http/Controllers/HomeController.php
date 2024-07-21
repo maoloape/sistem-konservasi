@@ -11,22 +11,24 @@ class HomeController extends Controller
     {
         $data = array(
             'tittle' => 'Beranda',
-            'data_konservasi' => konservasi::all(["bt", "ls", "create_in"]),
+            'data_konservasi' => konservasi::all(["id", "bt", "ls", "create_in"]),
         );
-
-        // dd($data['data_konservasi']);
 
         return view('beranda', $data);
     }
 
-    public function detail()
+    public function detail($id)
     {
+        $data_konservasi = konservasi::find($id);
+
+        if (!$data_konservasi) {
+            abort(404, 'Data not found');
+        }
+
         $data = array(
             'tittle' => 'Detail Lokasi',
-            'data_konservasi' => konservasi::all(["bt", "ls", "create_in", "das"]),
+            'data' => $data_konservasi
         );
-
-        // dd($data['data_konservasi']);
 
         return view('detail', $data);
     }

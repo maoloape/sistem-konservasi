@@ -98,13 +98,14 @@
             for (const {
                     bt,
                     ls,
+                    id,
                     create_in
                 }
                 of listCoords) {
                 L.marker({
                     lat: bt,
                     lng: ls
-                }).bindPopup(`<h3>${create_in}</h3><p align="center"><a href="/detail" class="link_detail btn btn-primary">Lihat Detail</a>`
+                }).bindPopup(`<h3>${id}</h3><p align="center"><a href="/detail/${id}" class="link_detail btn btn-primary">Lihat Detail</a>`
                 ).addTo(leafletMap);
             }
 

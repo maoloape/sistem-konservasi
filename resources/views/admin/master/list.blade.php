@@ -51,8 +51,15 @@
                                             <td>{{ $row->jenis_batu }}</td>
                                             <td>{{ $row->keterangan }}</td>
                                             <td><img src="{{ asset('uploads/' . $row->dokumentasi) }}" alt=""
-                                                    width="80px"></td>
+                                                width="80px"></td>
                                             <td>
+                                            {{-- <td>
+                                                @if($row->dokumentasi)
+                                                    @foreach(json_decode($row->dokumentasi) as $image)
+                                                        <img src="{{ asset('uploads/' . $image) }}" alt="Dokumentasi" width="50" height="50">
+                                                    @endforeach
+                                                @endif
+                                            </td> --}}
                                                 <a href="#modalEdit{{ $row->id }}" data-toggle="modal"
                                                     class="btn btn-xs btn-primary" data-id="{{ $row->id }}"
                                                     data-lat="{{ $row->bt }}" data-long="{{ $row->ls }}"><i

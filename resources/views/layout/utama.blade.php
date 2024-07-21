@@ -84,7 +84,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="#about_us" class="nav-item nav-link">About</a>
             </div>
             <a href="/" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Home<i
                     class="fa fa-home ms-3"></i></a>

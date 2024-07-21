@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CrudUserController;
-use App\Http\Controllers\DashboardController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -23,7 +22,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::middleware(['guest'])->group(function(){
     //Login Sistem Guest
     Route::get('/',[HomeController::class,'index']);
-    Route::get('/detail',[HomeController::class,'detail']);
+    Route::get('/detail/{id}',[HomeController::class,'detail'])->name('detail.show');
 
     Route::get('/admin',[UserController::class,'index'])->name('login');
     Route::post('/admin',[UserController::class,'login']);
@@ -33,6 +32,8 @@ Route::middleware(['auth'])->group(function(){
     //Login Sistem Auth
     Route::get('/Dashboard',[AdminController::class,'index']);
     Route::get('/logout',[UserController::class,'logout']);
+    Route::get('/',[HomeController::class,'index']);
+
 
     // Crud User
     Route::get('/User-Account',[CrudUserController::class,'index']);
