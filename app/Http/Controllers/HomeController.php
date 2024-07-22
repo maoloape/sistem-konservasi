@@ -19,17 +19,23 @@ class HomeController extends Controller
 
     public function detail($id)
     {
-        $data_konservasi = konservasi::find($id);
+        // Ambil data konservasi berdasarkan ID
+        $data_detail = konservasi::with('images')->find($id);
 
-        if (!$data_konservasi) {
+        if (!$data_detail) {
             abort(404, 'Data not found');
         }
 
+        // Ambil gambar berdasarkan ID konservasi
+        $images = $data_detail->images;
+
         $data = array(
             'tittle' => 'Detail Lokasi',
-            'data' => $data_konservasi
+            'data1' => $data_detail,
+            'images' => $images,
         );
 
         return view('detail', $data);
     }
+
 }

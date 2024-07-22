@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\konservasi;
+use App\Models\Image;
 
 class MasterController extends Controller
 {
     public function index()
     {
-        $data = array(
+        $data = [
             'tittle' => 'Master Data',
-            'data_konservasi' => konservasi::all(),
-        );
+            'data_konservasi' => konservasi::with('images')->get(),
+        ];
 
         return view('admin.master.list', $data);
     }
@@ -20,22 +21,13 @@ class MasterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dokumentasi' => 'mimes:png,jpg,jpeg|max:2048',
+            'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048', // Validate each file
         ],[
-            'dokumentasi.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
-            'dokumentasi.max' => 'Dokumentasi tidak boleh lebih dari 2MB',
+            'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
+            'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
         ]);
 
-        // Upload the file if it exists
-        if ($request->hasFile('dokumentasi')) {
-            $file = $request->file('dokumentasi');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $filename);
-        } else {
-            $filename = null;
-        }
-
-        konservasi::create([
+        $konservasi = konservasi::create([
             'das'           => $request->das,
             'sub_das'       => $request->sub_das,
             'kabupaten'     => $request->kabupaten,
@@ -44,49 +36,38 @@ class MasterController extends Controller
             'blok'          => $request->blok,
             'bt'            => $request->bt,
             'ls'            => $request->ls,
-            'dokumentasi'   => $filename,
-            'updated_at'    => now(),
-            'created_at'    => now(),
-            'create_in'     => 'in',
             'jenis_batu'    => $request->jenis_batu,
             'keterangan'    => $request->keterangan,
+            'create_in'     => 'in',
         ]);
+
+        if ($request->hasFile('dokumentasi')) {
+            $files = $request->file('dokumentasi');
+            foreach ($files as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads'), $filename);
+                Image::create([
+                    'konservasi_id' => $konservasi->id,
+                    'filename' => $filename,
+                ]);
+            }
+        }
 
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
-            'dokumentasi' => 'mimes:png,jpg,jpeg|max:2048',
+            'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048',
         ],[
-            'dokumentasi.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
-            'dokumentasi.max' => 'Dokumentasi tidak boleh lebih dari 2MB',
+            'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
+            'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
         ]);
 
         $konservasi = konservasi::findOrFail($id);
 
-        // Upload file jika ada
-        if ($request->hasFile('dokumentasi')) {
-            $file = $request->file('dokumentasi');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $filename);
-
-            // Hapus file lama jika ada
-            if ($konservasi->dokumentasi) {
-                $oldFile = public_path('uploads') . '/' . $konservasi->dokumentasi;
-                if (file_exists($oldFile)) {
-                    unlink($oldFile);
-                }
-            }
-        } else {
-            $filename = $konservasi->dokumentasi; // Gunakan filename lama jika tidak ada file baru yang di-upload
-        }
-
-        konservasi::where('id', $id)
-        ->where('id', $id)
-        ->update([
+        $konservasi->update([
             'das'           => $request->das,
             'sub_das'       => $request->sub_das,
             'kabupaten'     => $request->kabupaten,
@@ -97,109 +78,49 @@ class MasterController extends Controller
             'ls'            => $request->ls,
             'jenis_batu'    => $request->jenis_batu,
             'keterangan'    => $request->keterangan,
-            'dokumentasi'   => $filename,
         ]);
 
-        return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
+        if ($request->hasFile('dokumentasi')) {
+            $files = $request->file('dokumentasi');
+            foreach ($files as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads'), $filename);
+                Image::create([
+                    'konservasi_id' => $konservasi->id,
+                    'filename' => $filename,
+                ]);
+            }
+        }
 
+        return redirect('/konservasi-data')->with('Success', 'Data Berhasil Diperbarui');
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'dokumentasi' => 'mimes:png,jpg,jpeg|max:2048',
-    //         'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048', // Add this line to validate multiple files
-    //     ],[
-    //         'dokumentasi.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
-    //         'dokumentasi.max' => 'Dokumentasi tidak boleh lebih dari 2MB',
-    //     ]);
-
-    //     $filenames = []; // Initialize an array to store the uploaded file names
-
-    //     if ($request->hasFile('dokumentasi')) {
-    //         $files = $request->file('dokumentasi'); // Get the uploaded files
-    //         foreach ($files as $file) {
-    //             $filename = time() . '_' . $file->getClientOriginalName();
-    //             $file->move(public_path('uploads'), $filename);
-    //             $filenames[] = $filename; // Add the uploaded file name to the array
-    //         }
-    //     } else {
-    //         $filenames = null;
-    //     }
-
-    //     konservasi::create([
-    //         'das'           => $request->das,
-    //         'sub_das'       => $request->sub_das,
-    //         'kabupaten'     => $request->kabupaten,
-    //         'kecamatan'     => $request->kecamatan,
-    //         'desa'          => $request->desa,
-    //         'blok'          => $request->blok,
-    //         'bt'            => $request->bt,
-    //         'ls'            => $request->ls,
-    //         'dokumentasi'   => json_encode($filenames), // Store the array of file names as a JSON string
-    //         'updated_at'    => now(),
-    //         'created_at'    => now(),
-    //         'create_in'     => 'in',
-    //         'jenis_batu'    => $request->jenis_batu,
-    //         'keterangan'    => $request->keterangan,
-    //     ]);
-
-    //     return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     // Validasi input
-    //     $request->validate([
-    //         'dokumentasi' => 'mimes:png,jpg,jpeg|max:2048',
-    //     ],[
-    //         'dokumentasi.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
-    //         'dokumentasi.max' => 'Dokumentasi tidak boleh lebih dari 2MB',
-    //     ]);
-
-    //     $konservasi = konservasi::findOrFail($id);
-
-    //     $filenames = json_decode($konservasi->dokumentasi, true); // Get the existing file names from the database
-
-    //     if ($request->hasFile('dokumentasi')) {
-    //         $files = $request->file('dokumentasi');
-    //         foreach ($files as $file) {
-    //             $filename = time() . '_' . $file->getClientOriginalName();
-    //             $file->move(public_path('uploads'), $filename);
-    //             $filenames[] = $filename; // Add the new file name to the array
-    //         }
-    //     }
-
-    //     // Remove old files if they exist
-    //     foreach ($konservasi->dokumentasi as $oldFile) {
-    //         $oldFilePath = public_path('uploads') . '/' . $oldFile;
-    //         if (file_exists($oldFilePath)) {
-    //             unlink($oldFilePath);
-    //         }
-    //     }
-
-    //     konservasi::where('id', $id)
-    //     ->update([
-    //         'das'           => $request->das,
-    //         'sub_das'       => $request->sub_das,
-    //         'kabupaten'     => $request->kabupaten,
-    //         'kecamatan'     => $request->kecamatan,
-    //         'desa'          => $request->desa,
-    //         'blok'          => $request->blok,
-    //         'bt'            => $request->bt,
-    //         'ls'            => $request->ls,
-    //         'jenis_batu'    => $request->jenis_batu,
-    //         'keterangan'    => $request->keterangan,
-    //         'dokumentasi'   => json_encode($filenames), // Update the array of file names
-    //     ]);
-
-    //     return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
-
-    // }
+    public function deleteGalleryImage(Request $request)
+    {
+        $image_id = $request->input('image_id');
+        $gallery_image = Image::find($image_id);
+        if ($gallery_image) {
+            $gallery_image->delete();
+            return back()->with('success', 'Image deleted successfully');
+        } else {
+            return back()->with('error', 'Image not found');
+        }
+    }
 
     public function destroy($id)
     {
-        konservasi::where('id', $id)->delete();
+        $konservasi = konservasi::findOrFail($id);
+
+        foreach ($konservasi->images as $image) {
+            $filePath = public_path('uploads') . '/' . $image->filename;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $image->delete();
+        }
+
+        $konservasi->delete();
+
         return redirect('/konservasi-data')->with('Success', 'Data Berhasil Dihapus');
     }
 }

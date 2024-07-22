@@ -45,4 +45,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/konservasi-data/filter',[MasterController::class,'filter']);
     Route::post('/konservasi-data/update/{id}',[MasterController::class,'update']);
     Route::get('/konservasi-data/destroy/{id}',[MasterController::class,'destroy']);
+    Route::post('/delete-gallery-image', [MasterController::class,'deleteGalleryImage'])->name('delete-gallery-image');
+
 });

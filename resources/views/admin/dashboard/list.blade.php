@@ -40,7 +40,6 @@
                                         <th>Desa</th>
                                         <th>Blok</th>
                                         <th>Jenis Batu</th>
-                                        <th>Dokumentasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,15 +56,46 @@
                                             <td>{{ $row->desa }}</td>
                                             <td>{{ $row->blok }}</td>
                                             <td>{{ $row->jenis_batu }}</td>
-                                            <td><img src="{{ asset('uploads/' . $row->dokumentasi) }}" alt=""
-                                                    width="80px"></td>
-                                            {{-- <td>
-                                                @if($row->dokumentasi)
-                                                    @foreach(json_decode($row->dokumentasi) as $image)
-                                                        <img src="{{ asset('uploads/' . $image) }}" alt="Dokumentasi" width="50" height="50">
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <div class="row md-3">
+                                <h4 class="card-title">Data Galery</h4>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>DAS</th>
+                                        <th>Data Galery</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($data_konservasi as $row)
+                                        <tr>
+                                            <td>{{ $no++ }} </td>
+                                            <td>{{ $row->das }}</td>
+                                            <td>
+                                                @if($row->images)
+                                                    @foreach($row->images as $image)
+                                                        <img src="{{ asset('uploads/' . $image->filename) }}" alt="Dokumentasi" width="200" height="120">
                                                     @endforeach
                                                 @endif
-                                            </td> --}}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

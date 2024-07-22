@@ -49,6 +49,13 @@
                                     <div class="form-group">
                                         <input type="password" class="form-control" placeholder="Password" name="password" required>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember
+                                                Me</label>
+                                        </div>
+                                    </div>
                                     <button type="submit" class="btn login-form__btn submit w-100" style="background: #AB7442;">Sign In</button>
                                 </form>
                             </div>

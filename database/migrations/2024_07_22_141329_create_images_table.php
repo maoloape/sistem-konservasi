@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('konservasi', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('das');
-            $table->string('sub_das');
-            $table->string('kabupaten');
-            $table->string('kecamatan');
-            $table->string('desa');
-            $table->string('blok');
-            $table->float('bt', 10,6);
-            $table->float('ls', 10,6);
+            $table->foreignId('konservasi_id')->constrained()->onDelete('cascade'); // Foreign key
+            $table->string('filename');
             $table->timestamps();
         });
     }
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('konservasi');
+        Schema::dropIfExists('images');
     }
 };

@@ -25,4 +25,9 @@ class konservasi extends Model
         'keterangan',
         'create_in',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'konservasi_id');
+    }
 }

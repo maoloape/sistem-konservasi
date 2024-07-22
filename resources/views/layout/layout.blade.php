@@ -24,22 +24,26 @@
     <style>
         #map, .map { height: 480px; }
 
-        .nav-header {
+        /* .nav-header {
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
             padding: auto !important;
         }
 
-        .brand-logo img {
-            width: 60px !important;
-            height: auto !important;
+        .brand-logo {
+            display: flex;
+            align-items: center;
         }
 
-        .brand-logo span {
-            color: white !important; /* Warna putih untuk tulisan */
-            font-size: 16px !important; /* Anda bisa sesuaikan ukuran font jika perlu */
-            margin-left: 0px !important; /* Jarak antara gambar dan teks */
+        .brand-logo img {
+            width: 60px;
+            height: auto;
+            margin-right: 10px;
+        } */
+
+        .brand-logo .sidebar-brand-text {
+            color: white;
         }
 
     </style>
@@ -72,9 +76,11 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="/Dashboard">
-                    <img src="/assets_home/img/logo.png" alt="">
-                    <span> GIS Konservasi </span>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <img src="/assets_home/img/logo.png" alt="" width="60px">
+                    </div>
+                    <div class="sidebar-brand-text mx-1">GIS Bangunan KTA DAS Cidanau</div>
                 </a>
             </div>
         </div>

@@ -30,7 +30,6 @@
                                         <th>BT</th>
                                         <th>Jenis Batu</th>
                                         <th>Keterangan</th>
-                                        <th>Dokumentasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,22 +49,79 @@
                                             <td>{{ $row->ls }}</td>
                                             <td>{{ $row->jenis_batu }}</td>
                                             <td>{{ $row->keterangan }}</td>
-                                            <td><img src="{{ asset('uploads/' . $row->dokumentasi) }}" alt=""
-                                                width="80px"></td>
                                             <td>
-                                            {{-- <td>
-                                                @if($row->dokumentasi)
-                                                    @foreach(json_decode($row->dokumentasi) as $image)
-                                                        <img src="{{ asset('uploads/' . $image) }}" alt="Dokumentasi" width="50" height="50">
-                                                    @endforeach
-                                                @endif
-                                            </td> --}}
                                                 <a href="#modalEdit{{ $row->id }}" data-toggle="modal"
                                                     class="btn btn-xs btn-primary" data-id="{{ $row->id }}"
                                                     data-lat="{{ $row->bt }}" data-long="{{ $row->ls }}"><i
                                                         class="fa fa-edit"></i> Edit</a>
                                                 <a href="#modalHapus{{ $row->id }}" data-toggle="modal"
                                                     class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <div class="row md-3">
+                                <h4 class="card-title">Data Galery</h4>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>DAS</th>
+                                        <th>Data Galery</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($data_konservasi as $row)
+                                        <tr>
+                                            <td>{{ $no++ }} </td>
+                                            <td>{{ $row->das }}</td>
+                                            <td>
+                                                @if($row->images)
+                                                    @foreach($row->images as $image)
+                                                        <img src="{{ asset('uploads/' . $image->filename) }}" alt="Dokumentasi" width="200" height="120">
+                                                        <button type="button" class="btn btn-danger btn-sm" style="margin-left: 4px; margin-right: 4px;" data-toggle="modal" data-target="#modalDelete{{ $image->id }}">Delete</button>
+                                                        <!-- Modal Delete -->
+                                                        <div class="modal fade" id="modalDelete{{ $image->id }}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="modalDeleteLabel">Hapus File</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Yakin ingin menghapus file ini?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                        <form action="{{ route('delete-gallery-image') }}" method="post">
+                                                                            @csrf
+                                                                            <input type="hidden" name="image_id" value="{{ $image->id }}">
+                                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -138,8 +194,8 @@
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="">Dokumentasi</label>
-                            <input type="file" name="dokumentasi" accept=".png, .jpg, .jpeg">
+                            <label for="dokumentasi">Dokumentasi</label>
+                            <input type="file" class="form-control" name="dokumentasi[]" multiple>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -222,12 +278,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Dokumentasi</label>
-                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
-                                    name="dokumentasi">
-                                @if ($d->dokumentasi)
-                                    <img src="{{ asset('uploads/' . $d->dokumentasi) }}" alt="Current Image"
-                                        width="80px">
-                                @endif
+                                @foreach($d->images as $image)
+                                    <img src="{{ asset('uploads/' . $image->filename) }}" alt="Gambar Saat Ini" width="80px">
+                                @endforeach
+                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control" name="dokumentasi[]" multiple>
                             </div>
                         </div>
                         <div class="modal-footer">
