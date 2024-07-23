@@ -1,5 +1,16 @@
 @extends('layout.layout')
 @section('content')
+
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -22,14 +33,11 @@
                                         <th>No</th>
                                         <th>DAS</th>
                                         <th>SUB DAS</th>
-                                        <th>Kabupaten</th>
                                         <th>Kecamatan</th>
                                         <th>Desa</th>
-                                        <th>Blok</th>
                                         <th>LS</th>
                                         <th>BT</th>
                                         <th>Jenis Batu</th>
-                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,14 +49,11 @@
                                             <td>{{ $no++ }} </td>
                                             <td>{{ $row->das }}</td>
                                             <td>{{ $row->sub_das }}</td>
-                                            <td>{{ $row->kabupaten }}</td>
                                             <td>{{ $row->kecamatan }}</td>
                                             <td>{{ $row->desa }}</td>
-                                            <td>{{ $row->blok }}</td>
                                             <td>{{ $row->bt }}</td>
                                             <td>{{ $row->ls }}</td>
                                             <td>{{ $row->jenis_batu }}</td>
-                                            <td>{{ $row->keterangan }}</td>
                                             <td>
                                                 <a href="#modalEdit{{ $row->id }}" data-toggle="modal"
                                                     class="btn btn-xs btn-primary" data-id="{{ $row->id }}"
@@ -155,10 +160,6 @@
                             <input type="text" class="form-control" name="sub_das" placeholde="Sub Das ..." required>
                         </div>
                         <div class="form-group">
-                            <label for="">Kabupaten</label>
-                            <input type="text" class="form-control" name="kabupaten" placeholde="Kabupaten ..." required>
-                        </div>
-                        <div class="form-group">
                             <label for="">Kecamatan</label>
                             <input type="text" class="form-control" name="kecamatan" placeholde="Kecamatan ..." required>
                         </div>
@@ -166,31 +167,26 @@
                             <label for="">Desa</label>
                             <input type="text" class="form-control" name="desa" placeholde="Desa ..." required>
                         </div>
-                        <div class="form-group">
-                            <label for="">Blok</label>
-                            <input type="text" class="form-control" name="blok" placeholde="Blok ..." required>
-                        </div>
                         <label for="">Pilih Lokasi</label>
                         <div id="map" class="form-group">
                         </div>
                         <div class="form-group">
                             <label for="">LS</label>
-                            <input type="text" class="form-control" id="latitude" name="bt" placeholde="LS ..."
-                                required>
+                            <input type="text" class="form-control" id="latitude" name="bt" placeholde="LS ..." required>
+                            @error('bt')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">BT</label>
-                            <input type="text" class="form-control" id="longitude" name="ls" placeholde="BT ..."
-                                required>
+                            <input type="text" class="form-control" id="longitude" name="ls" placeholde="BT ..." required>
+                            @error('ls')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Jenis Batu</label>
                             <input type="text" class="form-control" name="jenis_batu" placeholde="Jenis Batu ..."
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Keterangan</label>
-                            <input type="text" class="form-control" name="keterangan" placeholde="Keterangan ..."
                                 required>
                         </div>
                         <div class="form-group">
@@ -233,11 +229,6 @@
                                     placeholde="Sub Das ..." required>
                             </div>
                             <div class="form-group">
-                                <label for="">Kabupaten</label>
-                                <input type="text" value="{{ $d->kabupaten }}" class="form-control" name="kabupaten"
-                                    placeholde="Kabupaten ..." required>
-                            </div>
-                            <div class="form-group">
                                 <label for="">Kecamatan</label>
                                 <input type="text" value="{{ $d->kecamatan }}" class="form-control" name="kecamatan"
                                     placeholde="Kecamatan ..." required>
@@ -247,34 +238,28 @@
                                 <input type="text" value="{{ $d->desa }}" class="form-control" name="desa"
                                     placeholde="Desa ..." required>
                             </div>
-                            <div class="form-group">
-                                <label for="">Blok</label>
-                                <input type="text" value="{{ $d->blok }}" class="form-control" name="blok"
-                                    placeholde="Blok ..." required>
-                            </div>
                             <label for="">Pilih Lokasi</label>
                             <div id="map-{{ $d->id }}" class="map">
 
                             </div>
                             <div class="form-group">
                                 <label for="">LS</label>
-                                <input type="text" value="{{ $d->bt }}" class="form-control"
-                                    id="lat-{{ $d->id }}" name="bt" placeholde="BT ..." required>
+                                <input type="text" value="{{ $d->bt }}" class="form-control" id="lat-{{ $d->id }}" name="bt" placeholder="LS ..." required>
+                                @error('bt')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="">BT</label>
-                                <input type="text" value="{{ $d->ls }}" class="form-control"
-                                    id="long-{{ $d->id }}" name="ls" placeholde="LS ..." required>
+                                <input type="text" value="{{ $d->ls }}" class="form-control" id="long-{{ $d->id }}" name="ls" placeholder="BT ..." required>
+                                @error('ls')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="">Jenis Batu</label>
                                 <input type="text" value="{{ $d->jenis_batu }}" class="form-control"
                                     name="jenis_batu" placeholde="Jenis Batu" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Keterangan</label>
-                                <input type="text" value="{{ $d->keterangan }}" class="form-control"
-                                    name="keterangan" placeholde="Keterangan" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Dokumentasi</label>
@@ -329,13 +314,9 @@
         // you want to get it of the window global
         const providerOSM = new GeoSearch.OpenStreetMapProvider();
 
-        //leaflet map
+        //leaflet map for create modal
         var leafletMap = L.map('map', {
             fullscreenControl: true,
-            // OR
-            fullscreenControl: {
-                pseudoFullscreen: false // if true, fullscreen to page width and height
-            },
             minZoom: 2
         }).setView([0, 0], 2);
 
@@ -359,7 +340,7 @@
 
             if (theMarker != undefined) {
                 leafletMap.removeLayer(theMarker);
-            };
+            }
             theMarker = L.marker([latitude, longitude]).addTo(leafletMap);
         });
 
@@ -388,16 +369,12 @@
                 lat: lat,
                 lng: long
             });
+
             if (!(typeof leafletMapEdit[`map-${dataId}`] == "object")) {
                 leafletMapEdit[`map-${dataId}`] = L.map(`map-${dataId}`, {
                     fullscreenControl: true,
-                    // OR
-                    fullscreenControl: {
-                        pseudoFullscreen: false // if true, fullscreen to page width and height
-                    },
                     minZoom: 2
                 }).setView([lat, long], 2);
-
 
                 leafletMapEdit[`map-${dataId}`].on('click', function(e) {
                     let latitude = e.latlng.lat.toString().substring(0, 15);
@@ -408,12 +385,10 @@
                         .setContent("Kordinat : " + latitude + " - " + longitude)
                         .openOn(leafletMapEdit[`map-${dataId}`]);
 
-                    $("#lat-" + dataId).val(latitude);
-                    $("#long-" + dataId).val(longitude);
+                    document.querySelector(`#lat-${dataId}`).value = latitude;
+                    document.querySelector(`#long-${dataId}`).value = longitude;
 
-                    // if (theMarker != undefined) {
                     leafletMapEdit[`map-${dataId}`].removeLayer(pin);
-                    // };
                     pin = L.marker([latitude, longitude]).addTo(leafletMapEdit[`map-${dataId}`]);
                 });
 
@@ -432,12 +407,9 @@
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(leafletMapEdit[`map-${dataId}`]);
 
-
             pin.addTo(leafletMapEdit[`map-${dataId}`]);
 
-            // let theMarker = {};
             leafletMapEdit[`map-${dataId}`].invalidateSize();
-
         });
     </script>
 @endsection

@@ -21,19 +21,26 @@ class MasterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'bt' => 'required',
+            'ls' => 'required',
             'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048', // Validate each file
         ],[
             'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
             'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
         ]);
 
+        if (strpos($request->bt, ',') !== false || strpos($request->ls, ',') !== false) {
+            return back()->withErrors([
+                'bt' => 'Format koordinat LS tidak boleh mengandung koma.',
+                'ls' => 'Format koordinat BT tidak boleh mengandung koma.'
+            ])->withInput()->with('modal', 'create');
+        }
+
         $konservasi = konservasi::create([
             'das'           => $request->das,
             'sub_das'       => $request->sub_das,
-            'kabupaten'     => $request->kabupaten,
             'kecamatan'     => $request->kecamatan,
             'desa'          => $request->desa,
-            'blok'          => $request->blok,
             'bt'            => $request->bt,
             'ls'            => $request->ls,
             'jenis_batu'    => $request->jenis_batu,
@@ -59,21 +66,28 @@ class MasterController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'bt' => 'required',
+            'ls' => 'required',
             'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048',
         ],[
             'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
             'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
         ]);
 
+        if (strpos($request->bt, ',') !== false || strpos($request->ls, ',') !== false) {
+            return back()->withErrors([
+                'bt' => 'Format koordinat LS tidak boleh mengandung koma.',
+                'ls' => 'Format koordinat BT tidak boleh mengandung koma.'
+            ])->withInput()->with('modal', 'edit');
+        }
+
         $konservasi = konservasi::findOrFail($id);
 
         $konservasi->update([
             'das'           => $request->das,
             'sub_das'       => $request->sub_das,
-            'kabupaten'     => $request->kabupaten,
             'kecamatan'     => $request->kecamatan,
             'desa'          => $request->desa,
-            'blok'          => $request->blok,
             'bt'            => $request->bt,
             'ls'            => $request->ls,
             'jenis_batu'    => $request->jenis_batu,
@@ -92,8 +106,128 @@ class MasterController extends Controller
             }
         }
 
-        return redirect('/konservasi-data')->with('Success', 'Data Berhasil Diperbarui');
+        return redirect('/konservasi-data')->with('success', 'Data Berhasil Diperbarui');
     }
+
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'bt' => 'required|numeric',
+    //         'ls' => 'required|numeric',
+    //         'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048', // Validate each file
+    //     ],[
+    //         'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
+    //         'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
+    //     ]);
+
+    //     if (strpos($request->bt, ',') !== false || strpos($request->ls, ',') !== false) {
+    //         return back()->withErrors([
+    //             'bt' => 'Format koordinat tidak boleh mengandung koma.',
+    //             'ls' => 'Format koordinat tidak boleh mengandung koma.'
+    //         ])->withInput()->with('modal', 'create');
+    //     }
+
+    //     $konservasi = konservasi::create([
+    //         'das'           => $request->das,
+    //         'sub_das'       => $request->sub_das,
+    //         'kecamatan'     => $request->kecamatan,
+    //         'desa'          => $request->desa,
+    //         'bt'            => $request->bt,
+    //         'ls'            => $request->ls,
+    //         'jenis_batu'    => $request->jenis_batu,
+    //         'keterangan'    => $request->keterangan,
+    //         'create_in'     => 'in',
+    //     ]);
+
+    //     if ($request->hasFile('dokumentasi')) {
+    //         $files = $request->file('dokumentasi');
+    //         foreach ($files as $file) {
+    //             $filename = time() . '_' . $file->getClientOriginalName();
+    //             $file->move(public_path('uploads'), $filename);
+    //             Image::create([
+    //                 'konservasi_id' => $konservasi->id,
+    //                 'filename' => $filename,
+    //             ]);
+    //         }
+    //     }
+
+    //     return redirect('/konservasi-data')->with('Success', 'Data Berhasil Disimpan');
+    // }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'bt' => 'required',
+    //         'ls' => 'required',
+    //         'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048',
+    //     ],[
+    //         'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
+    //         'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
+    //     ]);
+
+    //     if (strpos($request->bt, ',') !== false || strpos($request->ls, ',') !== false) {
+    //         return back()->withErrors([
+    //             'bt' => 'Format koordinat tidak boleh mengandung koma.',
+    //             'ls' => 'Format koordinat tidak boleh mengandung koma.'
+    //         ])->withInput()->with('modal', 'edit');
+    //     } else {
+    //         $konservasi = konservasi::findOrFail($id);
+
+    //         $konservasi->update([
+    //             'das'           => $request->das,
+    //             'sub_das'       => $request->sub_das,
+    //             'kecamatan'     => $request->kecamatan,
+    //             'desa'          => $request->desa,
+    //             'bt'            => $request->bt,
+    //             'ls'            => $request->ls,
+    //             'jenis_batu'    => $request->jenis_batu,
+    //             'keterangan'    => $request->keterangan,
+    //         ]);
+
+    //         if ($request->hasFile('dokumentasi')) {
+    //             $files = $request->file('dokumentasi');
+    //             foreach ($files as $file) {
+    //                 $filename = time() . '_' . $file->getClientOriginalName();
+    //                 $file->move(public_path('uploads'), $filename);
+    //                 Image::create([
+    //                     'konservasi_id' => $konservasi->id,
+    //                     'filename' => $filename,
+    //                 ]);
+    //             }
+    //         }
+
+    //             return redirect('/konservasi-data')->with('success', 'Data Berhasil Diperbarui');
+    //         }
+
+    //     // $konservasi = konservasi::findOrFail($id);
+
+    //     // $konservasi->update([
+    //     //     'das'           => $request->das,
+    //     //     'sub_das'       => $request->sub_das,
+    //     //     'kabupaten'     => $request->kabupaten,
+    //     //     'kecamatan'     => $request->kecamatan,
+    //     //     'desa'          => $request->desa,
+    //     //     'blok'          => $request->blok,
+    //     //     'bt'            => $request->bt,
+    //     //     'ls'            => $request->ls,
+    //     //     'jenis_batu'    => $request->jenis_batu,
+    //     //     'keterangan'    => $request->keterangan,
+    //     // ]);
+
+    //     // if ($request->hasFile('dokumentasi')) {
+    //     //     $files = $request->file('dokumentasi');
+    //     //     foreach ($files as $file) {
+    //     //         $filename = time() . '_' . $file->getClientOriginalName();
+    //     //         $file->move(public_path('uploads'), $filename);
+    //     //         Image::create([
+    //     //             'konservasi_id' => $konservasi->id,
+    //     //             'filename' => $filename,
+    //     //         ]);
+    //     //     }
+    //     // }
+
+    //     // return redirect('/konservasi-data')->with('Success', 'Data Berhasil Diperbarui');
+    // }
 
     public function deleteGalleryImage(Request $request)
     {

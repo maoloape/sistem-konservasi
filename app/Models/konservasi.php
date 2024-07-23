@@ -14,15 +14,12 @@ class konservasi extends Model
     protected $fillable = [
         'das',
         'sub_das',
-        'kabupaten',
         'kecamatan',
         'desa',
-        'blok',
         'bt',
         'ls',
         'dokumentasi',
         'jenis_batu',
-        'keterangan',
         'create_in',
     ];
 

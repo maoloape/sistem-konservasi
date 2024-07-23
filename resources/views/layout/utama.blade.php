@@ -50,6 +50,16 @@
             overflow: hidden;
         }
 
+        #map_location_detail {
+            height: 400px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .navbar.bg-primary-transparent {
+            background-color: rgba(70, 51, 23, 0.6); /* Adjust the color and transparency */
+        }
+
         .navbar-brand img {
             max-height: 50px; /* Adjust as needed */
             height: auto;
@@ -75,9 +85,9 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+    <nav class="navbar navbar-expand-lg bg-primary-transparent navbar-light sticky-top p-0">
         <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <img src="/assets_home/img/logo.png" alt=""> <h2 class="m-0 text-primary">Sistem Informasi Geografis</h2>
+            <img src="/assets_home/img/logo.png" alt=""> <h2 class="m-0 text-white">Sistem Informasi Geografis</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>

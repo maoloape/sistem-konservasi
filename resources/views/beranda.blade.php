@@ -13,9 +13,10 @@
                             <div class="col-12 col-lg-8 text-center">
                                 <h5 class="text-white text-uppercase mb-3 animated slideInDown">Sistem Informasi Geografis Wisata
                                 </h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Kabupaten Banyumas
+                                <h1 class="display-3 text-white animated slideInDown mb-4">Bangunan KTA DAS Cidanau
                                 </h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Sistem informasi ini merupakan aplikasi pemetaan geografis tempat wisata di wilayah Banyumas. Aplikasi ini memuat informasi dan lokasi dari tempat wisata di Banyumas.</p>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Sistem informasi ini merupakan aplikasi pemetaan geografis bangunan Konservasi Tanah dan Air di wilayah DAS Cidanau.
+                                    Aplikasi ini memuat informasi singkat dan lokasi dari bangunan KTA tersebut.</p>
                             </div>
                         </div>
                     </div>
