@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         $data = array(
             'tittle' => 'Beranda',
-            'data_konservasi' => konservasi::all(["id","das", "bt", "ls", "create_in"]),
+            'data_konservasi' => konservasi::all(["id","das", "bt", "ls", "kabupaten", "kecamatan", "desa", "create_in"]),
         );
 
         return view('beranda', $data);

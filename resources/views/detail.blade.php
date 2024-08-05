@@ -48,7 +48,16 @@
                     <p>Alamat</p>
                 </div>
                 <div class="col-md-8">
-                    <p class="fw-bold">{{ $data1->kecamatan }}, {{ $data1->das }}, Banten</p>
+                    <p class="fw-bold">{{ $data1->desa }}, {{ $data1->kecamatan }}, {{ $data1->kabupaten }}, Banten</p>
+                </div>
+                <hr>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p>Blok</p>
+                </div>
+                <div class="col-md-8">
+                    <p class="fw-bold">{{ $data1->blok }}</p>
                 </div>
                 <hr>
             </div>
@@ -58,6 +67,15 @@
                 </div>
                 <div class="col-md-8">
                     <p class="fw-bold">{{ $data1->jenis_batu }}</p>
+                </div>
+                <hr>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p>Volume</p>
+                </div>
+                <div class="col-md-8">
+                    <p class="fw-bold">{{ $data1->volume }}</p>
                 </div>
                 <hr>
             </div>

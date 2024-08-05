@@ -15,11 +15,17 @@ class konservasi extends Model
         'das',
         'sub_das',
         'kecamatan',
+        'blok',
+        'kabupaten',
         'desa',
         'bt',
         'ls',
         'dokumentasi',
         'jenis_batu',
+        'p',
+        'l',
+        't',
+        'volume',
         'create_in',
     ];
 

@@ -21,6 +21,12 @@ return new class extends Migration
             $table->string('blok');
             $table->float('bt', 10,6);
             $table->float('ls', 10,6);
+            $table->float('p');
+            $table->float('l');
+            $table->float('t');
+            $table->float('volume');
+            $table->string('jenis_batu');
+            $table->string('create_in');
             $table->timestamps();
         });
     }

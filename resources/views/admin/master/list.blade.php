@@ -33,10 +33,13 @@
                                         <th>No</th>
                                         <th>DAS</th>
                                         <th>SUB DAS</th>
+                                        <th>Kabupaten</th>
                                         <th>Kecamatan</th>
                                         <th>Desa</th>
+                                        <th>Blok</th>
                                         <th>LS</th>
                                         <th>BT</th>
+                                        <th>Volume</th>
                                         <th>Jenis Batu</th>
                                     </tr>
                                 </thead>
@@ -49,10 +52,13 @@
                                             <td>{{ $no++ }} </td>
                                             <td>{{ $row->das }}</td>
                                             <td>{{ $row->sub_das }}</td>
+                                            <td>{{ $row->kabupaten }}</td>
                                             <td>{{ $row->kecamatan }}</td>
                                             <td>{{ $row->desa }}</td>
+                                            <td>{{ $row->blok }}</td>
                                             <td>{{ $row->bt }}</td>
                                             <td>{{ $row->ls }}</td>
+                                            <td>{{ $row->volume }}</td>
                                             <td>{{ $row->jenis_batu }}</td>
                                             <td>
                                                 <a href="#modalEdit{{ $row->id }}" data-toggle="modal"
@@ -76,7 +82,7 @@
                     <div class="card-body">
                         <div class="card-header">
                             <div class="row md-3">
-                                <h4 class="card-title">Data Galery</h4>
+                                <h4 class="card-title">Dokumentasi</h4>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -85,7 +91,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>DAS</th>
-                                        <th>Data Galery</th>
+                                        <th>Dokumentasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -160,12 +166,25 @@
                             <input type="text" class="form-control" name="sub_das" placeholde="Sub Das ..." required>
                         </div>
                         <div class="form-group">
+                            <label for="">Kabupaten</label>
+                            <input type="text" class="form-control" name="kabupaten" placeholde="kabupaten ..." required>
+                        </div>
+                        <div class="form-group">
                             <label for="">Kecamatan</label>
                             <input type="text" class="form-control" name="kecamatan" placeholde="Kecamatan ..." required>
                         </div>
                         <div class="form-group">
                             <label for="">Desa</label>
                             <input type="text" class="form-control" name="desa" placeholde="Desa ..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Blok</label>
+                            <input type="text" class="form-control" name="blok" placeholde="blok ..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jenis Batu</label>
+                            <input type="text" class="form-control" name="jenis_batu" placeholde="Jenis Batu ..."
+                                required>
                         </div>
                         <label for="">Pilih Lokasi</label>
                         <div id="map" class="form-group">
@@ -184,9 +203,20 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <label for="">Volume</label>
                         <div class="form-group">
-                            <label for="">Jenis Batu</label>
-                            <input type="text" class="form-control" name="jenis_batu" placeholde="Jenis Batu ..."
+                            <label for="">Panjang</label>
+                            <input type="text" class="form-control" name="p" placeholde=""
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Lebar</label>
+                            <input type="text" class="form-control" name="l" placeholde=""
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tinggi</label>
+                            <input type="text" class="form-control" name="t" placeholde=""
                                 required>
                         </div>
                         <div class="form-group">
@@ -210,7 +240,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Data Barang</h5>
+                        <h5 class="modal-title">Edit Data Lokasi</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
@@ -229,6 +259,11 @@
                                     placeholde="Sub Das ..." required>
                             </div>
                             <div class="form-group">
+                                <label for="">Kabupaten</label>
+                                <input type="text" value="{{ $d->kabupaten }}" class="form-control"
+                                    name="jenis_batu" placeholde="Jenis Batu" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="">Kecamatan</label>
                                 <input type="text" value="{{ $d->kecamatan }}" class="form-control" name="kecamatan"
                                     placeholde="Kecamatan ..." required>
@@ -237,6 +272,16 @@
                                 <label for="">Desa</label>
                                 <input type="text" value="{{ $d->desa }}" class="form-control" name="desa"
                                     placeholde="Desa ..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Blok</label>
+                                <input type="text" value="{{ $d->blok }}" class="form-control"
+                                    name="jenis_batu" placeholde="Jenis Batu" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Jenis Batu</label>
+                                <input type="text" value="{{ $d->jenis_batu }}" class="form-control"
+                                    name="jenis_batu" placeholde="Jenis Batu" required>
                             </div>
                             <label for="">Pilih Lokasi</label>
                             <div id="map-{{ $d->id }}" class="map">
@@ -256,10 +301,18 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <label for="">Volume</label>
                             <div class="form-group">
-                                <label for="">Jenis Batu</label>
-                                <input type="text" value="{{ $d->jenis_batu }}" class="form-control"
-                                    name="jenis_batu" placeholde="Jenis Batu" required>
+                                <label for="">Panjang</label>
+                                <input type="text" value="{{ $d->p }}" class="form-control" name="p" placeholder="Panjang ..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Lebar</label>
+                                <input type="text" value="{{ $d->l }}" class="form-control" name="l" placeholder="Lebar ..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tinggi</label>
+                                <input type="text" value="{{ $d->t }}" class="form-control" name="t" placeholder="Tinggi ..." required>
                             </div>
                             <div class="form-group">
                                 <label for="">Dokumentasi</label>
@@ -286,7 +339,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hapus Data Barang</h5>
+                        <h5 class="modal-title">Hapus Data Lokasi</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>

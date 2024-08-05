@@ -32,6 +32,42 @@
             <div class="text-center">
                 <h1 class="display-5 mb-5">Peta Lokasi Bangunan KTA</h1>
             </div>
+            <select id="kabupatenFilter">
+                <option value="">Pilih Kabupaten</option>
+                @php
+                    $uniqueKabupaten = [];
+                    $uniqueKecamatan = [];
+                    $uniqueDesa = [];
+                    foreach ($data_konservasi as $item) {
+                        if (!in_array($item->kabupaten, $uniqueKabupaten)) {
+                            $uniqueKabupaten[] = $item->kabupaten;
+                        }
+                        if (!in_array($item->kecamatan, $uniqueKecamatan)) {
+                            $uniqueKecamatan[] = $item->kecamatan;
+                        }
+                        if (!in_array($item->desa, $uniqueDesa)) {
+                            $uniqueDesa[] = $item->desa;
+                        }
+                    }
+                @endphp
+                @foreach ($uniqueKabupaten as $kabupaten)
+                    <option value="{{ $kabupaten }}">{{ $kabupaten }}</option>
+                @endforeach
+            </select>
+
+            <select id="kecamatanFilter">
+                <option value="">Pilih Kecamatan</option>
+                @foreach ($uniqueKecamatan as $kecamatan)
+                    <option value="{{ $kecamatan }}">{{ $kecamatan }}</option>
+                @endforeach
+            </select>
+
+            <select id="desaFilter">
+                <option value="">Pilih Desa</option>
+                @foreach ($uniqueDesa as $desa)
+                    <option value="{{ $desa }}">{{ $desa }}</option>
+                @endforeach
+            </select>
             <div id="map_location">
             </div>
         </div>
@@ -80,38 +116,84 @@
     @endsection
 
     @section('js')
-        <script>
-            // you want to get it of the window global
-            const providerOSM = new GeoSearch.OpenStreetMapProvider();
+    <script>
+        // you want to get it of the window global
+        const providerOSM = new GeoSearch.OpenStreetMapProvider();
 
-            //leaflet map
-            const leafletMap = L.map('map_location', {
-                fullscreenControl: true,
-                // OR
-                fullscreenControl: {
-                    pseudoFullscreen: false // if true, fullscreen to page width and height
-                },
-                minZoom: 2
-            }).setView([0, 0], 2);
+        //leaflet map
+        const leafletMap = L.map('map_location', {
+            fullscreenControl: true,
+            // OR
+            fullscreenControl: {
+                pseudoFullscreen: false // if true, fullscreen to page width and height
+            },
+            minZoom: 2
+        }).setView([0, 0], 2);
 
-            const listCoords = {!! json_encode($data_konservasi) !!};
+        const listCoords = {!! json_encode($data_konservasi) !!};
 
-            for (const {
-                    bt,
-                    ls,
-                    id,
-                    das
+        const markers = [];
+
+        let bounds = L.latLngBounds();
+
+        for (const {
+                bt,
+                ls,
+                id,
+                das,
+                kabupaten,
+                kecamatan,
+                desa
+            } of listCoords) {
+            const marker = L.marker({
+                lat: bt,
+                lng: ls
+            }).bindPopup(`<h3>${das}</h3><p align="center"><a href="/detail/${id}" class="link_detail btn btn-primary">Lihat Detail</a>`
+            ).addTo(leafletMap);
+
+            marker.kabupaten = kabupaten;
+            marker.kecamatan = kecamatan;
+            marker.desa = desa;
+            markers.push(marker);
+
+            bounds.extend([bt, ls]);
+        }
+
+        leafletMap.fitBounds(bounds);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(leafletMap);
+
+        // Adding search functionality
+        const search = new GeoSearch.GeoSearchControl({
+            provider: providerOSM,
+            style: 'icon',
+            searchLabel: 'Search',
+        });
+
+        leafletMap.addControl(search);
+
+        // Filter functionality
+        function filterMarkers() {
+            const selectedKabupaten = document.getElementById('kabupatenFilter').value;
+            const selectedKecamatan = document.getElementById('kecamatanFilter').value;
+            const selectedDesa = document.getElementById('desaFilter').value;
+
+            markers.forEach(marker => {
+                if ((selectedKabupaten === "" || marker.kabupaten === selectedKabupaten) &&
+                    (selectedKecamatan === "" || marker.kecamatan === selectedKecamatan) &&
+                    (selectedDesa === "" || marker.desa === selectedDesa)) {
+                    leafletMap.addLayer(marker);
+                } else {
+                    leafletMap.removeLayer(marker);
                 }
-                of listCoords) {
-                L.marker({
-                    lat: bt,
-                    lng: ls
-                }).bindPopup(`<h3>${das}</h3><p align="center"><a href="/detail/${id}" class="link_detail btn btn-primary">Lihat Detail</a>`
-                ).addTo(leafletMap);
-            }
+            });
+        }
 
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(leafletMap);
-        </script>
+        document.getElementById('kabupatenFilter').addEventListener('change', filterMarkers);
+        document.getElementById('kecamatanFilter').addEventListener('change', filterMarkers);
+        document.getElementById('desaFilter').addEventListener('change', filterMarkers);
+    </script>
+
     @endsection
