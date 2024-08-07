@@ -72,6 +72,24 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-4">
+                    <p>Jenis Kawat</p>
+                </div>
+                <div class="col-md-8">
+                    <p class="fw-bold">{{ $data1->jenis_kawat }}</p>
+                </div>
+                <hr>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p>Ukuran</p>
+                </div>
+                <div class="col-md-8">
+                    <p class="fw-bold">Panjang : {{ $data1->p }}m, Lebar : {{ $data1->l }}m & Tinggi : {{ $data1->t }}m</p>
+                </div>
+                <hr>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
                     <p>Volume</p>
                 </div>
                 <div class="col-md-8">
@@ -79,9 +97,16 @@
                 </div>
                 <hr>
             </div>
+        </div>
+        <div class="col-md-6">
+            <div class="display-5 mb-5">
+                <h1>Lokasi</h1>
+            </div>
+            <div id="map_location_detail" class="position-relative h-240"></div>
+            <br>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <p style="font-size: 24px"><b>Dokumentasi</b></p>
+                    <h1><b>Dokumentasi</b></h1>
                 </div>
             </div>
             <div class="row g-4 portfolio-container">
@@ -103,12 +128,6 @@
                 @endforeach
             @endif
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="display-5 mb-5">
-                <h1>Lokasi</h1>
-            </div>
-            <div id="map_location_detail" class="position-relative h-240"></div>
         </div>
     </div>
 </div>

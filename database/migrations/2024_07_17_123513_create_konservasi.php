@@ -26,6 +26,7 @@ return new class extends Migration
             $table->float('t');
             $table->float('volume');
             $table->string('jenis_batu');
+            $table->string('jenis_kawat');
             $table->string('create_in');
             $table->timestamps();
         });

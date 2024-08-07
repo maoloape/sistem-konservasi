@@ -26,6 +26,7 @@ class konservasi extends Model
         'l',
         't',
         'volume',
+        'jenis_kawat',
         'create_in',
     ];
 

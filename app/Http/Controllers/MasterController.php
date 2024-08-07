@@ -26,6 +26,7 @@ class MasterController extends Controller
             'p' => 'required',
             'l' => 'required',
             't' => 'required',
+            'volume' => 'required',
             'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048', // Validate each file
         ],[
             'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
@@ -34,12 +35,14 @@ class MasterController extends Controller
 
         if (strpos($request->bt, ',') !== false || strpos($request->ls, ',') !== false) {
             return back()->withErrors([
-                'bt' => 'Format koordinat LS tidak boleh mengandung koma.',
-                'ls' => 'Format koordinat BT tidak boleh mengandung koma.'
+                'bt' => 'Format koordinat LS tidak boleh mengandung huruf dan koma.',
+                'ls' => 'Format koordinat BT tidak boleh mengandung huruf dan koma.',
+                'p' => 'Format tidak boleh mengandung huruf dan koma.',
+                'l' => 'Format tidak boleh mengandung huruf dan koma.',
+                't' => 'Format tidak boleh mengandung huruf dan koma.',
+                'volume' => 'Format tidak boleh mengandung huruf dan koma.',
             ])->withInput()->with('modal', 'create');
         }
-
-        $volume=$request->p * $request->l * $request->t;
 
         $konservasi = konservasi::create([
             'das'           => $request->das,
@@ -54,7 +57,8 @@ class MasterController extends Controller
             'p'             => $request->p,
             'l'             => $request->l,
             't'             => $request->t,
-            'volume'        => $volume,
+            'volume'        => $request->volume,
+            'jenis_kawat'   => $request->jenis_kawat,
             'create_in'     => 'in',
         ]);
 
@@ -81,7 +85,8 @@ class MasterController extends Controller
             'p' => 'required',
             'l' => 'required',
             't' => 'required',
-            'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048',
+            'volume' => 'required',
+            'dokumentasi.*' => 'mimes:png,jpg,jpeg|max:2048', // Validate each file
         ],[
             'dokumentasi.*.mimes' => 'Dokumentasi harus berupa file png, jpg, atau jpeg',
             'dokumentasi.*.max' => 'Dokumentasi tidak boleh lebih dari 2MB per file',
@@ -89,14 +94,16 @@ class MasterController extends Controller
 
         if (strpos($request->bt, ',') !== false || strpos($request->ls, ',') !== false) {
             return back()->withErrors([
-                'bt' => 'Format koordinat LS tidak boleh mengandung koma.',
-                'ls' => 'Format koordinat BT tidak boleh mengandung koma.'
-            ])->withInput()->with('modal', 'edit');
+                'bt' => 'Format koordinat LS tidak boleh mengandung huruf dan koma.',
+                'ls' => 'Format koordinat BT tidak boleh mengandung huruf dan koma.',
+                'p' => 'Format tidak boleh mengandung huruf dan koma.',
+                'l' => 'Format tidak boleh mengandung huruf dan koma.',
+                't' => 'Format tidak boleh mengandung huruf dan koma.',
+                'volume' => 'Format tidak boleh mengandung huruf dan koma.',
+            ])->withInput()->with('modal', 'create');
         }
 
         $konservasi = konservasi::findOrFail($id);
-
-        $volume=$request->p * $request->l * $request->t;
 
         $konservasi->update([
             'das'           => $request->das,
@@ -111,7 +118,8 @@ class MasterController extends Controller
             'p'             => $request->p,
             'l'             => $request->l,
             't'             => $request->t,
-            'volume'        => $volume,
+            'volume'        => $request->volume,
+            'jenis_kawat'   => $request->jenis_kawat,
             'create_in'     => 'in',
         ]);
 
